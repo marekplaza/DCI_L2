@@ -1,0 +1,91 @@
+---
+# inventory.yml
+all:
+  children:
+    FABRIC:
+      children:
+        DC1:
+          children:
+            DC1_SPINES:
+              hosts:
+                dc1-sp01:
+                  ansible_host: 111.1.1.1
+                dc1-sp02:
+                  ansible_host: 111.1.1.2
+            DC1_L3_LEAVES:
+              hosts:
+                dc1-lf01:
+                  ansible_host: 111.1.2.1
+                dc1-lf02:
+                  ansible_host: 111.1.2.2
+                dc1-lf03:
+                  ansible_host: 111.1.2.3
+                dc1-lf04:
+                  ansible_host: 111.1.2.4
+                dc1-lf05:
+                  ansible_host: 111.1.2.5
+                dc1-lf06:
+                  ansible_host: 111.1.2.6
+                dc1-lf07:
+                  ansible_host: 111.1.2.7
+                dc1-lf08:
+                  ansible_host: 111.1.2.8
+                dc1-lf09:
+                  ansible_host: 111.1.2.9
+                dc1-lf10:
+                  ansible_host: 111.1.2.10
+                dc1-lf11:
+                  ansible_host: 111.1.2.11
+                dc1-lf12:
+                  ansible_host: 111.1.2.12
+                dc1-lf13:
+                  ansible_host: 111.1.2.13
+                dc1-lf14:
+                  ansible_host: 111.1.2.14
+        DC2:
+          children:
+            DC2_SPINES:
+              hosts:
+                dc2-sp01:
+                  ansible_host: 111.2.1.1
+                dc2-sp02:
+                  ansible_host: 111.2.1.2
+            DC2_L3_LEAVES:
+              hosts:
+                dc2-lf01:
+                  ansible_host: 111.2.2.1
+                dc2-lf02:
+                  ansible_host: 111.2.2.2
+                dc2-lf03:
+                  ansible_host: 111.2.2.3
+                dc2-lf04:
+                  ansible_host: 111.2.2.4
+                dc2-lf05:
+                  ansible_host: 111.2.2.5
+                dc2-lf06:
+                  ansible_host: 111.2.2.6
+
+#    NETWORK_SERVICES:
+#      children:
+#        DC1_SPINES:
+#        DC2_SPINES:
+#        DC1_L3_LEAVES:
+#        DC2_L3_LEAVES:
+
+#        DC1_L2_LEAVES:
+#        DC2_L2_LEAVES:
+#    CONNECTED_ENDPOINTS:
+    AVD_FABRIC_ENDPOINTS:
+      children:
+        DC1_SPINES:
+        DC2_SPINES:
+        DC1_L3_LEAVES:
+        DC2_L3_LEAVES:
+#        DC1_L2_LEAVES:
+#        DC2_L2_LEAVES:
+    AVD_FABRIC_TENANTS:
+      children:
+        DC1_SPINES:
+        DC2_SPINES:
+        DC1_L3_LEAVES:
+        DC2_L3_LEAVES:

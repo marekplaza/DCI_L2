@@ -1,0 +1,391 @@
+name: Orlen MGMT
+prefix: ""
+
+mgmt:
+  network: orlenmgmt
+  ipv4-subnet: 111.0.0.0/8
+  ipv4-gw: 111.0.0.254
+
+topology:
+  kinds:
+    ceos:
+      enforce-startup-config: true
+      image: arista/ceos:4.31.4M
+  defaults:
+    kind: ceos
+    #extras:
+    #  ceos-copy-to-flash:
+    #    - clab/cv-onboarding-token
+    # an alternative to ceos-copy-to-flash could be bind
+    # keeping the bind settings here just in case
+    # binds:
+    #   - cv-onboarding-token:/mnt/flash/cv-onboarding-token:ro
+  nodes:
+    # DC1
+    dc1-sp01:
+      group: dc1spines
+      mgmt-ipv4: 111.1.1.1
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Spines"
+        graph-level: 2
+
+      #binds:
+      #  - sn/dc1-sp01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-sp02:
+      group: dc1spines
+      mgmt-ipv4: 111.1.1.2
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Spines"
+        graph-level: 2
+      #binds:
+      #  - sn/dc1-sp02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf01:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.1
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf02:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.2
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf03:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.3
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 1
+      #binds:
+      #  - sn/dc1-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf04:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.4
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 1
+      #binds:
+      #  - sn/dc1-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf05:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.5
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf06:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.6
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf07:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.7
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf08:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.8
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf09:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.9
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf10:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.10
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf11:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.11
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf12:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.12
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf13:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.13
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-lf14:
+      group: dc1leafs
+      mgmt-ipv4: 111.1.2.14
+      labels:
+        graph-icon: spine
+        graph-group: "DC1 Leafs"
+        graph-level: 3
+      #binds:
+      #  - sn/dc1-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+### DC1 test hosts
+    dc1-h01:
+      group: dc1hosts
+      mgmt-ipv4: 111.1.3.1
+      labels:
+        graph-icon: server
+        graph-group: "sample host"
+        graph-level: 4
+      startup-config: init-configs/template.cfg
+    dc1-h02:
+      group: dc1hosts
+      mgmt-ipv4: 111.1.3.2
+      labels:
+        graph-icon: server
+        graph-group: "sample host"
+        graph-level: 4
+      startup-config: init-configs/template.cfg
+
+    # DC2
+    dc2-sp01:
+      group: dc2spines
+      mgmt-ipv4: 111.2.1.1
+      labels:
+        graph-icon: spine
+        graph-group: "DC2 Leafs"
+        graph-level: 2
+      #binds:
+      #  - sn/dc2-sp01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-sp02:
+      group: dc2spines
+      mgmt-ipv4: 111.2.1.2
+      labels:
+        graph-icon: spine
+        graph-group: "DC2 Leafs"
+        graph-level: 2
+      #binds:
+      #  - sn/dc2-sp02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-lf01:
+      group: dc2leafs
+      mgmt-ipv4: 111.2.2.1
+      labels:
+        graph-icon: spine
+        graph-group: "DC2 Leafs"
+        graph-level: 5
+      #binds:
+      #  - sn/dc2-lf01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-lf02:
+      group: dc2leafs
+      mgmt-ipv4: 111.2.2.2
+      labels:
+        graph-icon: spine
+        graph-group: "DC2 Leafs"
+        graph-level: 5
+      #binds:
+      #  - sn/dc2-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-lf03:
+      group: dc2leafs
+      mgmt-ipv4: 111.2.2.3
+      labels:
+        graph-icon: spine
+        graph-group: "DC2 Leafs"
+        graph-level: 1
+      #binds:
+      #  - sn/dc2-lf01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-lf04:
+      group: dc2leafs
+      mgmt-ipv4: 111.2.2.4
+      labels:
+        graph-icon: spine
+        graph-group: "DC2 Leafs"
+        graph-level: 1
+      #binds:
+      #  - sn/dc2-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-lf05:
+      group: dc2leafs
+      mgmt-ipv4: 111.2.2.5
+      labels:
+        graph-icon: spine
+        graph-group: "DC2 Leafs"
+        graph-level: 5
+      #binds:
+      #  - sn/dc2-lf01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-lf06:
+      group: dc2leafs
+      mgmt-ipv4: 111.2.2.6
+      labels:
+        graph-icon: spine
+        graph-group: "DC2 Leafs"
+        graph-level: 5
+      #binds:
+      #  - sn/dc2-lf02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    # DC2 test hosts
+    dc2-h01:
+      group: dc2hosts
+      mgmt-ipv4: 111.2.3.1
+      labels:
+        graph-icon: server
+        graph-group: "DC2 Sample hosts"
+        graph-level: 5
+      startup-config: init-configs/template.cfg
+    dc2-h02:
+      group: dc2hosts
+      mgmt-ipv4: 111.2.3.2
+      labels:
+        graph-icon: server
+        graph-group: "DC2 Sample hosts"
+        graph-level: 5
+      startup-config: init-configs/template.cfg
+    # DC1 & DC2
+    firewall:
+      group: firewall
+      mgmt-ipv4: 111.1.4.111
+      labels:
+        graph-icon: firewall
+        graph-group: "Firewall Cluster"
+        graph-level: 6
+      startup-config: init-configs/template.cfg
+    
+
+  links:
+    # links for DC1
+    - endpoints: ["dc1-lf01:eth1", "dc1-sp01:eth1"]
+    - endpoints: ["dc1-lf01:eth2", "dc1-sp02:eth1"]
+    #
+    - endpoints: ["dc1-lf02:eth1", "dc1-sp01:eth2"]
+    - endpoints: ["dc1-lf02:eth2", "dc1-sp02:eth2"]
+    #
+    - endpoints: ["dc1-lf03:eth1", "dc1-sp01:eth3"]
+    - endpoints: ["dc1-lf03:eth2", "dc1-sp02:eth3"]
+    #
+    - endpoints: ["dc1-lf04:eth1", "dc1-sp01:eth4"]
+    - endpoints: ["dc1-lf04:eth2", "dc1-sp02:eth4"]
+    #
+    - endpoints: ["dc1-lf05:eth1", "dc1-sp01:eth5"]
+    - endpoints: ["dc1-lf05:eth2", "dc1-sp02:eth5"]
+    #
+    - endpoints: ["dc1-lf06:eth1", "dc1-sp01:eth6"]
+    - endpoints: ["dc1-lf06:eth2", "dc1-sp02:eth6"]
+    #
+    - endpoints: ["dc1-lf07:eth1", "dc1-sp01:eth7"]
+    - endpoints: ["dc1-lf07:eth2", "dc1-sp02:eth7"]
+    #
+    - endpoints: ["dc1-lf08:eth1", "dc1-sp01:eth8"]
+    - endpoints: ["dc1-lf08:eth2", "dc1-sp02:eth8"]
+    #
+    - endpoints: ["dc1-lf09:eth1", "dc1-sp01:eth9"]
+    - endpoints: ["dc1-lf09:eth2", "dc1-sp02:eth9"]
+    #
+    - endpoints: ["dc1-lf10:eth1", "dc1-sp01:eth10"]
+    - endpoints: ["dc1-lf10:eth2", "dc1-sp02:eth10"]
+    #
+    - endpoints: ["dc1-lf11:eth1", "dc1-sp01:eth11"]
+    - endpoints: ["dc1-lf11:eth2", "dc1-sp02:eth11"]
+    #
+    - endpoints: ["dc1-lf12:eth1", "dc1-sp01:eth12"]
+    - endpoints: ["dc1-lf12:eth2", "dc1-sp02:eth12"]
+    #
+    - endpoints: ["dc1-lf13:eth1", "dc1-sp01:eth13"]
+    - endpoints: ["dc1-lf13:eth2", "dc1-sp02:eth13"]
+    #
+    - endpoints: ["dc1-lf14:eth1", "dc1-sp01:eth14"]
+    - endpoints: ["dc1-lf14:eth2", "dc1-sp02:eth14"] 
+    # DC1 hosts
+    - endpoints: ["dc1-h01:eth1", "dc1-lf01:eth10"]
+    - endpoints: ["dc1-h01:eth2", "dc1-lf02:eth10"]
+    - endpoints: ["dc1-h02:eth1", "dc1-lf01:eth9"]
+
+    # links for DC2
+    - endpoints: ["dc2-lf01:eth1", "dc2-sp01:eth1"]
+    - endpoints: ["dc2-lf01:eth2", "dc2-sp02:eth1"]
+    #
+    - endpoints: ["dc2-lf02:eth1", "dc2-sp01:eth2"]
+    - endpoints: ["dc2-lf02:eth2", "dc2-sp02:eth2"]
+    #
+    - endpoints: ["dc2-lf03:eth1", "dc2-sp01:eth3"]
+    - endpoints: ["dc2-lf03:eth2", "dc2-sp02:eth3"]
+    #
+    - endpoints: ["dc2-lf04:eth1", "dc2-sp01:eth4"]
+    - endpoints: ["dc2-lf04:eth2", "dc2-sp02:eth4"]   
+    #
+    - endpoints: ["dc2-lf05:eth1", "dc2-sp01:eth5"]
+    - endpoints: ["dc2-lf05:eth2", "dc2-sp02:eth5"]
+    #
+    - endpoints: ["dc2-lf06:eth1", "dc2-sp01:eth6"]
+    - endpoints: ["dc2-lf06:eth2", "dc2-sp02:eth6"]   
+    # DC2 hosts
+    - endpoints: ["dc2-h01:eth1", "dc2-lf01:eth10"]
+    - endpoints: ["dc2-h01:eth2", "dc2-lf02:eth10"]
+    - endpoints: ["dc2-h02:eth1", "dc2-lf02:eth9"]
+
+    # links for DCI: DC1-DC2
+    - endpoints: ["dc1-lf03:eth6", "dc2-lf03:eth6"]
+    - endpoints: ["dc1-lf04:eth6", "dc2-lf04:eth6"]
+    # Firewall
+    - endpoints: ["dc1-lf01:eth20", "firewall:eth1"]
+    - endpoints: ["dc1-lf02:eth20", "firewall:eth2"]
+    - endpoints: ["dc2-lf01:eth20", "firewall:eth3"]
+    - endpoints: ["dc2-lf02:eth20", "firewall:eth4"]

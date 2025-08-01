@@ -1,0 +1,29 @@
+---
+tenants:
+- mac_vrf_vni_base: 10000
+  name: TENANT_A
+#  vrfs:
+#
+#  - name: VRF1
+#    vrf_id: 1
+#    vtep_diagnostic:
+#      loopback: '101'
+#      loopback_ip_range: 100.64.101.0/24
+#    svis:
+#    - enabled: true
+#      id: 10
+#      ip_address_virtual: 10.100.100.1/24
+#      name: VLAN10
+#      tags: [dc1-lf01, dc1-lf02]
+#    - enabled: true
+#      id: 20
+#      ip_address_virtual: 10.200.200.1/24
+#      name: VLAN20
+#      evpn_vlan_bundle: VRF1
+#      tags: [dc2-lf01, dc2-lf04]
+  l2vlans:
+    # These are pure L2 vlans. They do not have a SVI defined in the l3leafs and they will be bridged inside the VXLAN fabric
+    - id: 10
+      name: VLAN10
+    - id: 20
+      name: VLAN20

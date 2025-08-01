@@ -1,0 +1,371 @@
+hostname: dc1-sp02
+is_deployed: true
+router_bgp:
+  as: '65100'
+  router_id: 10.255.0.2
+  bgp:
+    default:
+      ipv4_unicast: false
+  maximum_paths:
+    paths: 4
+    ecmp: 4
+  peer_groups:
+  - name: IPv4-UNDERLAY-PEERS
+    type: ipv4
+    password: 7x4B4rnJhZB438m9+BrBfQ==
+    maximum_routes: 12000
+    send_community: all
+  - name: EVPN-OVERLAY-PEERS
+    type: evpn
+    update_source: Loopback0
+    bfd: true
+    password: Q4fqtbqcZ7oQuKfuWtNGRQ==
+    send_community: all
+    maximum_routes: 0
+    ebgp_multihop: 3
+    next_hop_unchanged: true
+  address_family_ipv4:
+    peer_groups:
+    - name: IPv4-UNDERLAY-PEERS
+      activate: true
+    - name: EVPN-OVERLAY-PEERS
+      activate: false
+  redistribute_routes:
+  - source_protocol: connected
+    route_map: RM-CONN-2-BGP
+  neighbors:
+  - ip_address: 10.255.255.3
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65101'
+    peer: dc1-lf01
+    description: dc1-lf01_Ethernet2
+  - ip_address: 10.255.255.7
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65102'
+    peer: dc1-lf02
+    description: dc1-lf02_Ethernet2
+  - ip_address: 10.255.255.11
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65103'
+    peer: dc1-lf03
+    description: dc1-lf03_Ethernet2
+  - ip_address: 10.255.255.15
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65104'
+    peer: dc1-lf04
+    description: dc1-lf04_Ethernet2
+  - ip_address: 10.255.255.19
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65105'
+    peer: dc1-lf05
+    description: dc1-lf05_Ethernet2
+  - ip_address: 10.255.255.23
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65106'
+    peer: dc1-lf06
+    description: dc1-lf06_Ethernet2
+  - ip_address: 10.255.255.27
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65107'
+    peer: dc1-lf07
+    description: dc1-lf07_Ethernet2
+  - ip_address: 10.255.255.31
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65108'
+    peer: dc1-lf08
+    description: dc1-lf08_Ethernet2
+  - ip_address: 10.255.255.35
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65109'
+    peer: dc1-lf09
+    description: dc1-lf09_Ethernet2
+  - ip_address: 10.255.255.39
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65110'
+    peer: dc1-lf10
+    description: dc1-lf10_Ethernet2
+  - ip_address: 10.255.255.43
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65111'
+    peer: dc1-lf11
+    description: dc1-lf11_Ethernet2
+  - ip_address: 10.255.255.47
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65112'
+    peer: dc1-lf12
+    description: dc1-lf12_Ethernet2
+  - ip_address: 10.255.255.51
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65113'
+    peer: dc1-lf13
+    description: dc1-lf13_Ethernet2
+  - ip_address: 10.255.255.55
+    peer_group: IPv4-UNDERLAY-PEERS
+    remote_as: '65114'
+    peer: dc1-lf14
+    description: dc1-lf14_Ethernet2
+  - ip_address: 10.255.0.3
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf01
+    description: dc1-lf01
+    remote_as: '65101'
+  - ip_address: 10.255.0.4
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf02
+    description: dc1-lf02
+    remote_as: '65102'
+  - ip_address: 10.255.0.5
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf03
+    description: dc1-lf03
+    remote_as: '65103'
+  - ip_address: 10.255.0.6
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf04
+    description: dc1-lf04
+    remote_as: '65104'
+  - ip_address: 10.255.0.7
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf05
+    description: dc1-lf05
+    remote_as: '65105'
+  - ip_address: 10.255.0.8
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf06
+    description: dc1-lf06
+    remote_as: '65106'
+  - ip_address: 10.255.0.9
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf07
+    description: dc1-lf07
+    remote_as: '65107'
+  - ip_address: 10.255.0.10
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf08
+    description: dc1-lf08
+    remote_as: '65108'
+  - ip_address: 10.255.0.11
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf09
+    description: dc1-lf09
+    remote_as: '65109'
+  - ip_address: 10.255.0.12
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf10
+    description: dc1-lf10
+    remote_as: '65110'
+  - ip_address: 10.255.0.13
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf11
+    description: dc1-lf11
+    remote_as: '65111'
+  - ip_address: 10.255.0.14
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf12
+    description: dc1-lf12
+    remote_as: '65112'
+  - ip_address: 10.255.0.15
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf13
+    description: dc1-lf13
+    remote_as: '65113'
+  - ip_address: 10.255.0.16
+    peer_group: EVPN-OVERLAY-PEERS
+    peer: dc1-lf14
+    description: dc1-lf14
+    remote_as: '65114'
+  address_family_evpn:
+    peer_groups:
+    - name: EVPN-OVERLAY-PEERS
+      activate: true
+static_routes:
+- vrf: MGMT
+  destination_address_prefix: 0.0.0.0/0
+  gateway: 172.16.1.1
+service_routing_protocols_model: multi-agent
+ip_routing: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+ip_name_servers:
+- ip_address: 8.8.8.8
+  vrf: MGMT
+spanning_tree:
+  mode: none
+local_users:
+- name: admin
+  privilege: 15
+  role: network-admin
+  no_password: true
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$Enl0WfE32FthwyiJ$yTyGaEJ2uPKLU.F7314YtB7J1jrzrMi7ogXIRTEHQfLdLgKWWmr1UvNlZLN6AyuxET7G5aH3AI9OYRzxVTkB1.
+vrfs:
+- name: MGMT
+  ip_routing: false
+management_interfaces:
+- name: Management0
+  description: oob_management
+  shutdown: false
+  vrf: MGMT
+  ip_address: 111.1.1.2/8
+  gateway: 172.16.1.1
+  type: oob
+management_api_http:
+  enable_vrfs:
+  - name: MGMT
+  enable_https: true
+ethernet_interfaces:
+- name: Ethernet1
+  peer: dc1-lf01
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF01_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.2/31
+- name: Ethernet2
+  peer: dc1-lf02
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF02_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.6/31
+- name: Ethernet3
+  peer: dc1-lf03
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF03_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.10/31
+- name: Ethernet4
+  peer: dc1-lf04
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF04_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.14/31
+- name: Ethernet5
+  peer: dc1-lf05
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF05_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.18/31
+- name: Ethernet6
+  peer: dc1-lf06
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF06_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.22/31
+- name: Ethernet7
+  peer: dc1-lf07
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF07_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.26/31
+- name: Ethernet8
+  peer: dc1-lf08
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF08_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.30/31
+- name: Ethernet9
+  peer: dc1-lf09
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF09_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.34/31
+- name: Ethernet10
+  peer: dc1-lf10
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF10_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.38/31
+- name: Ethernet11
+  peer: dc1-lf11
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF11_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.42/31
+- name: Ethernet12
+  peer: dc1-lf12
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF12_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.46/31
+- name: Ethernet13
+  peer: dc1-lf13
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF13_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.50/31
+- name: Ethernet14
+  peer: dc1-lf14
+  peer_interface: Ethernet2
+  peer_type: l3leaf
+  description: P2P_LINK_TO_DC1-LF14_Ethernet2
+  shutdown: false
+  mtu: 9214
+  type: routed
+  ip_address: 10.255.255.54/31
+loopback_interfaces:
+- name: Loopback0
+  description: EVPN_Overlay_Peering
+  shutdown: false
+  ip_address: 10.255.0.2/32
+prefix_lists:
+- name: PL-LOOPBACKS-EVPN-OVERLAY
+  sequence_numbers:
+  - sequence: 10
+    action: permit 10.255.0.0/27 eq 32
+route_maps:
+- name: RM-CONN-2-BGP
+  sequence_numbers:
+  - sequence: 10
+    type: permit
+    match:
+    - ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY
+router_bfd:
+  multihop:
+    interval: 300
+    min_rx: 300
+    multiplier: 3
+metadata:
+  platform: cEOS

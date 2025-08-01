@@ -1,0 +1,211 @@
+---
+### group_vars/DC1.yml
+
+# Default gateway used for the management interface
+mgmt_gateway: 172.16.1.1
+
+# Spine switch group
+spine:
+  
+  # Definition of default values that will be configured to all nodes defined in this group
+  defaults:
+    # Set the relevant platform as each platform has different default values in Ansible AVD
+    platform: cEOS
+    # Pool of IPv4 addresses to configure interface Loopback0 used for BGP EVPN sessions
+    loopback_ipv4_pool: 10.255.0.0/27
+    # ASN to be used by BGP
+    bgp_as: 65100
+
+  # Definition of nodes contained in this group.
+  # Specific configuration of device must take place under the node definition. Each node inherites all values defined under 'defaults'
+  nodes:
+
+    # Name of the node to be defined (must be consistent with definition in inventory)
+    - name: dc1-sp01   
+      # Device ID definition. An integer number used for internal calculations (ie. IPv4 address of the loopback_ipv4_pool among others)
+      id: 1
+      # Management IP to be assigned to the management interface
+      mgmt_ip: 111.1.1.1/8
+
+    - name: dc1-sp02
+      id: 2
+      mgmt_ip: 111.1.1.2/8
+
+      
+
+# L3 Leaf switch group
+l3leaf:
+  defaults:
+    # Set the relevant platform as each platform has different default values in Ansible AVD
+    platform: cEOS
+    # Pool of IPv4 addresses to configure interface Loopback0 used for BGP EVPN sessions
+    loopback_ipv4_pool: 10.255.0.0/27
+    # Offset all assigned loopback IP addresses.
+    # Required when the < loopback_ipv4_pool > is same for 2 different node_types (like spine and l3leaf) to avoid over-lapping IPs.
+    # For example, set the minimum offset l3leaf.defaults.loopback_ipv4_offset: < total # spine switches > or vice versa.
+    loopback_ipv4_offset: 2
+    # Definition of pool of IPs to be used as Virtual Tunnel EndPoint (VXLAN origin and destination IPs)
+    vtep_loopback_ipv4_pool: 10.255.1.0/27
+    # Ansible hostname of the devices used to establish neighborship (IP assignments and BGP peering)
+    uplink_switches: ['dc1-sp01', 'dc1-sp02']
+    # Definition of pool of IPs to be used in P2P links
+    uplink_ipv4_pool: 10.255.255.0/26
+#    # Definition of pool of IPs to be used for MLAG peer-link connectivity
+#    mlag_peer_ipv4_pool: 10.255.1.64/27
+#    # iBGP Peering between MLAG peers
+#    mlag_peer_l3_ipv4_pool: 10.255.1.96/27
+    # Virtual router mac for VNIs assigned to Leaf switches in format xx:xx:xx:xx:xx:xx
+    virtual_router_mac_address: 00:1c:73:00:dc:01
+    spanning_tree_mode: mstp
+    spanning_tree_priority: 16384
+
+  # If two nodes (and only two) are in the same node_group, they will automatically form an MLAG pair
+  node_groups:
+    # Definition of a node group that will include two devices in MLAG.
+    # Definitions under the group will be inherited by both nodes in the group
+    - group: DC1_L3_LEAF1
+      bgp_as: 65101
+      nodes:
+        # Definition of hostnames under the node_group
+        - name: dc1-lf01
+          id: 1
+          mgmt_ip: 111.1.2.1/8
+
+          # Definition of the port to be used in the uplink device facing this device.
+          # Note that the number of elements in this list must match the length of 'uplink_switches' as well as 'uplink_interfaces'
+          uplink_switch_interfaces:
+            - Ethernet1
+            - Ethernet1
+    - group: DC1_L3_LEAF2
+      bgp_as: 65102
+      nodes:
+        - name: dc1-lf02
+          id: 2
+          mgmt_ip: 111.1.2.2/8
+          uplink_switch_interfaces:
+            - Ethernet2
+            - Ethernet2
+    - group: DC1_L3_LEAF3
+      bgp_as: 65103
+      nodes:
+        - name: dc1-lf03
+          id: 3
+          mgmt_ip: 111.1.2.3/8
+          uplink_switch_interfaces:
+            - Ethernet3
+            - Ethernet3
+          evpn_gateway:
+            evpn_l2:
+              enabled: true
+            # Define remote peers of the EVPN VXLAN Gateway.
+            # If the hostname can be found in the inventory, ip_address and BGP ASN will be automatically populated.
+            # Manual override takes precedence. If the peer's hostname can not be found in the inventory, ip_address and bgp_as must be defined.
+            remote_peers:
+              - hostname: dc2-lf03
+    - group: DC1_L3_LEAF4
+      bgp_as: 65104
+      nodes:
+        - name: dc1-lf04
+          id: 4
+          mgmt_ip: 111.1.2.4/8
+          uplink_switch_interfaces:
+            - Ethernet4
+            - Ethernet4
+          evpn_gateway:
+            evpn_l2:
+              enabled: true
+            # Define remote peers of the EVPN VXLAN Gateway.
+            # If the hostname can be found in the inventory, ip_address and BGP ASN will be automatically populated.
+            # Manual override takes precedence. If the peer's hostname can not be found in the inventory, ip_address and bgp_as must be defined.
+            remote_peers:
+              - hostname: dc2-lf04
+    - group: DC1_L3_LEAF5
+      bgp_as: 65105
+      nodes:
+        - name: dc1-lf05
+          id: 5
+          mgmt_ip: 111.1.2.5/8
+          uplink_switch_interfaces:
+            - Ethernet5
+            - Ethernet5
+    - group: DC1_L3_LEAF6
+      bgp_as: 65106
+      nodes:
+        - name: dc1-lf06
+          id: 6
+          mgmt_ip: 111.1.2.6/8
+          uplink_switch_interfaces:
+            - Ethernet6
+            - Ethernet6
+    - group: DC1_L3_LEAF7
+      bgp_as: 65107
+      nodes:
+        - name: dc1-lf07
+          id: 7
+          mgmt_ip: 111.1.2.7/8
+          uplink_switch_interfaces:
+            - Ethernet7
+            - Ethernet7
+    - group: DC1_L3_LEAF8
+      bgp_as: 65108
+      nodes:
+        - name: dc1-lf08
+          id: 8
+          mgmt_ip: 111.1.2.8/8
+          uplink_switch_interfaces:
+            - Ethernet8
+            - Ethernet8
+    - group: DC1_L3_LEAF9
+      bgp_as: 65109
+      nodes:
+        - name: dc1-lf09
+          id: 9
+          mgmt_ip: 111.1.2.9/8
+          uplink_switch_interfaces:
+            - Ethernet9
+            - Ethernet9
+    - group: DC1_L3_LEAF10
+      bgp_as: 65110
+      nodes:
+        - name: dc1-lf10
+          id: 10
+          mgmt_ip: 111.1.2.10/8
+          uplink_switch_interfaces:
+            - Ethernet10
+            - Ethernet10
+    - group: DC1_L3_LEAF11
+      bgp_as: 65111
+      nodes:
+        - name: dc1-lf11
+          id: 11
+          mgmt_ip: 111.1.2.11/8
+          uplink_switch_interfaces:
+            - Ethernet11
+            - Ethernet11
+    - group: DC1_L3_LEAF12
+      bgp_as: 65112
+      nodes:
+        - name: dc1-lf12
+          id: 12
+          mgmt_ip: 111.1.2.12/8
+          uplink_switch_interfaces:
+            - Ethernet12
+            - Ethernet12
+    - group: DC1_L3_LEAF13
+      bgp_as: 65113
+      nodes:
+        - name: dc1-lf13
+          id: 13
+          mgmt_ip: 111.1.2.13/8
+          uplink_switch_interfaces:
+            - Ethernet13
+            - Ethernet13
+    - group: DC1_L3_LEAF14
+      bgp_as: 65114
+      nodes:
+        - name: dc1-lf14
+          id: 14
+          mgmt_ip: 111.1.2.14/8
+          uplink_switch_interfaces:
+            - Ethernet14
+            - Ethernet14

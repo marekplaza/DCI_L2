@@ -1,0 +1,107 @@
+name: Orlen MGMT
+prefix: ""
+
+mgmt:
+  network: orlenmgmt
+  ipv4-subnet: 111.0.0.0/8
+  ipv4-gw: 111.0.0.254
+
+topology:
+  kinds:
+    ceos:
+      enforce-startup-config: true
+      image: arista/ceos:4.31.4M
+  defaults:
+    kind: ceos
+    #extras:
+    #  ceos-copy-to-flash:
+    #    - clab/cv-onboarding-token
+    # an alternative to ceos-copy-to-flash could be bind
+    # keeping the bind settings here just in case
+    # binds:
+    #   - cv-onboarding-token:/mnt/flash/cv-onboarding-token:ro
+  nodes:
+    # DC1
+    dc1-s01:
+      mgmt-ipv4: 111.1.1.1
+      #binds:
+      #  - sn/dc1-s01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-s02:
+      mgmt-ipv4: 111.1.1.2
+      #binds:
+      #  - sn/dc1-s02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-l01:
+      mgmt-ipv4: 111.1.2.1
+      #binds:
+      #  - sn/dc1-l01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-l02:
+      mgmt-ipv4: 111.1.2.2
+      #binds:
+      #  - sn/dc1-l02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc1-h01:
+      mgmt-ipv4: 111.1.3.1
+      startup-config: init-configs/template.cfg
+    dc1-h02:
+      mgmt-ipv4: 111.1.3.2
+      startup-config: init-configs/template.cfg
+    # DC2
+    dc2-s01:
+      mgmt-ipv4: 111.2.1.1
+      #binds:
+      #  - sn/dc2-s01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-s02:
+      mgmt-ipv4: 111.2.1.2
+      #binds:
+      #  - sn/dc2-s02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-l01:
+      mgmt-ipv4: 111.2.2.1
+      #binds:
+      #  - sn/dc2-l01.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-l02:
+      mgmt-ipv4: 111.2.2.2
+      #binds:
+      #  - sn/dc2-l02.txt:/mnt/flash/ceos-config:ro
+      startup-config: init-configs/template.cfg
+    dc2-h01:
+      mgmt-ipv4: 111.2.3.1
+      startup-config: init-configs/template.cfg
+    dc2-h02:
+      mgmt-ipv4: 111.2.3.2
+      startup-config: init-configs/template.cfg
+    # DC1 & DC2
+    firewall:
+      mgmt-ipv4: 111.1.4.111
+      startup-config: init-configs/template.cfg
+    
+
+  links:
+    # links for DC1
+    - endpoints: ["dc1-l01:eth1", "dc1-s01:eth1"]
+    - endpoints: ["dc1-l01:eth2", "dc1-s02:eth1"]
+    - endpoints: ["dc1-l02:eth1", "dc1-s01:eth2"]
+    - endpoints: ["dc1-l02:eth2", "dc1-s02:eth2"]
+    # DC1 hosts
+    - endpoints: ["dc1-h01:eth1", "dc1-l01:eth10"]
+    - endpoints: ["dc1-h01:eth2", "dc1-l02:eth10"]
+    - endpoints: ["dc1-h02:eth1", "dc1-l01:eth9"]
+    - endpoints: ["dc1-s01:eth7", "firewall:eth1"]
+    # links for DC2
+    - endpoints: ["dc2-l01:eth1", "dc2-s01:eth1"]
+    - endpoints: ["dc2-l01:eth2", "dc2-s02:eth1"]
+    - endpoints: ["dc2-l02:eth1", "dc2-s01:eth2"]
+    - endpoints: ["dc2-l02:eth2", "dc2-s02:eth2"]
+    # DC2 hosts
+    - endpoints: ["dc2-h01:eth1", "dc2-l01:eth10"]
+    - endpoints: ["dc2-h01:eth2", "dc2-l02:eth10"]
+    - endpoints: ["dc2-h02:eth1", "dc2-l02:eth9"]
+    - endpoints: ["dc2-s01:eth7", "firewall:eth2"]
+    # links for DCI: DC1-DC2
+    - endpoints: ["dc1-s01:eth6", "dc2-s01:eth6"]
+    - endpoints: ["dc1-s02:eth6", "dc2-s02:eth6"]

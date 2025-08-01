@@ -1,0 +1,6 @@
+    - endpoints: ["dc2-l01:eth1", "dc2-s01:eth1"]
+    - endpoints: ["dc2-l01:eth2", "dc2-s02:eth1"]
+    - endpoints: ["dc2-l02:eth1", "dc2-s01:eth2"]
+    - endpoints: ["dc2-l02:eth2", "dc2-s02:eth2"]
+    - endpoints: ["dc2-h01:eth1", "dc2-l01:eth10"]
+    - endpoints: ["dc2-h01:eth2", "dc2-l02:eth10"]

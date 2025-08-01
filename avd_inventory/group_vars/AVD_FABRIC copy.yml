@@ -1,0 +1,100 @@
+---
+
+# Ansible connectivity definitions
+# eAPI connectivity via HTTPS is specified (as opposed to CLI via SSH)
+ansible_connection: ansible.netcommon.httpapi
+# Specifies that we are indeed using Arista EOS
+ansible_network_os: arista.eos.eos
+# This user/password must exist on the switches to enable Ansible access
+ansible_user: arista
+ansible_password: arista
+# User escalation (to enter enable mode)
+ansible_become: true
+ansible_become_method: enable
+# Use SSL (HTTPS)
+ansible_httpapi_use_ssl: true
+# Do not try to validate certs
+ansible_httpapi_validate_certs: false
+
+# Common AVD group variables
+fabric_name: AVD_FABRIC
+
+# Generate CSVs with fabric link info.
+eos_designs_documentation:
+  topology_csv: true
+  p2p_links_csv: true
+
+# Define underlay and overlay routing protocol to be used
+underlay_routing_protocol: ebgp
+overlay_routing_protocol: ebgp
+
+# Local users
+local_users:
+  # Username with no password configured
+  - name: admin
+    privilege: 15
+    role: network-admin
+    no_password: true
+
+  # Username with a password
+  - name: arista
+    privilege: 15
+    role: network-admin
+    sha512_password: "$6$Enl0WfE32FthwyiJ$yTyGaEJ2uPKLU.F7314YtB7J1jrzrMi7ogXIRTEHQfLdLgKWWmr1UvNlZLN6AyuxET7G5aH3AI9OYRzxVTkB1."
+
+# BGP peer groups passwords
+bgp_peer_groups:
+  # all passwords set to "arista"
+  evpn_overlay_peers:
+    password: Q4fqtbqcZ7oQuKfuWtNGRQ==
+  ipv4_underlay_peers:
+    password: 7x4B4rnJhZB438m9+BrBfQ==
+
+# Spine Switches
+spine:
+  defaults:
+    platform: cEOS
+    bgp_as: 65100
+    loopback_ipv4_pool: 10.255.0.0/27
+  nodes:
+    - name: dc1-s01
+      id: 1
+      mgmt_ip: 111.1.1.1/8
+    - name: dc1-s02
+      id: 2
+      mgmt_ip: 111.1.1.2/8
+
+l3leaf:
+  defaults:
+    platform: cEOS
+    loopback_ipv4_pool: 10.255.0.0/27
+    loopback_ipv4_offset: 2
+    vtep_loopback_ipv4_pool: 10.255.1.0/27
+    uplink_interfaces: ['Ethernet1', 'Ethernet2']
+    uplink_switches: ['dc1-s01', 'dc1-s02']
+    uplink_ipv4_pool: 10.255.255.0/26
+    virtual_router_mac_address: 00:1c:73:00:dc:01
+    spanning_tree_mode: mstp
+    spanning_tree_priority: 16384
+  #
+  node_groups:
+    - group: DC1_L3_LEAF1
+      bgp_as: 65101
+      nodes:
+        - name: dc1-lf01
+          id: 1
+          mgmt_ip: 111.1.2.1/8
+          uplink_switch_interfaces: ['Ethernet1', 'Ethernet1']
+          filter:
+            tags: [dc1-lf01]
+    - group: DC1_L3_LEAF1
+      bgp_as: 65102
+      nodes:
+        - name: dc1-lf02
+          id: 2
+          mgmt_ip: 111.1.2.2/8
+          uplink_switch_interfaces: ['Ethernet2', 'Ethernet2']
+          filter:
+            tags: [dc1-lf02]
+
+p2p_uplinks_mtu: 9214
