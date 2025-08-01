@@ -9,7 +9,7 @@ This lab is tested for:
     memory: 32 GB  
     storage: 128 GB  
 
-![lab diagram1](orlen.mgmt-with test hosts.drawio.svg)
+![lab diagram1](orlen.mgmt-with test hosts.drawio.png)
 Last reviewed: 18/06/2024  
 
 Enjoy!
