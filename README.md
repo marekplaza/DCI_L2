@@ -6,10 +6,12 @@ This lab is tested for:
   Containerlab Version: 0.69.1  
   Codespace Container Size  
     vCPUs: 16-24  
-    memory: 32 GB  
-    storage: 128 GB  
+    memory: 32-64 GB  
+    storage: 64-128 GB  
 
 ![lab diagram1](diagram.png)
-Last reviewed: 18/06/2024  
+
+
+Last reviewed: 1/08/2025 
 
 Enjoy!
